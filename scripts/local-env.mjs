@@ -1,0 +1,10 @@
+import {spawnSync} from 'node:child_process';
+import {writeFileSync,existsSync} from 'node:fs';
+const result=spawnSync(process.execPath,['scripts/supabase.mjs','status','-o','json'],{encoding:'utf8'});
+if(result.status!==0)throw Error('Start local Supabase first.');
+const status=JSON.parse(result.stdout);const url=status.API_URL;const database=status.DB_URL;
+if(!['localhost','127.0.0.1'].includes(new URL(url).hostname)||!['localhost','127.0.0.1'].includes(new URL(database).hostname))throw Error('Refusing non-local configuration');
+const common=`NEXT_PUBLIC_SUPABASE_URL=${url}\nNEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=${status.PUBLISHABLE_KEY}\n`;
+if(!existsSync('.env.local'))writeFileSync('.env.local',common,{mode:0o600});
+writeFileSync('.env.test',common+`DATABASE_URL=${database}\n`,{mode:0o600});
+console.log('Local test environment prepared; existing .env.local preserved. No privileged key written.');

@@ -1,0 +1,33 @@
+name: Step 1 checks
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run db:start
+      - run: node scripts/local-env.mjs
+      - run: npm run db:reset
+      - run: npm run db:types
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+      - run: npm run test:db
+      - run: npm run test:workers
+      - run: npm run build
+      - run: npm run test:e2e
+      - run: node scripts/supabase.mjs db advisors --type all --level warn --fail-on error
+      - if: always()
+        run: node scripts/supabase.mjs stop --no-backup

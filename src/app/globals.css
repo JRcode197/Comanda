@@ -1,0 +1,117 @@
+@import "tailwindcss";
+@theme inline {
+  --font-sans: Arial, Helvetica, sans-serif;
+  --color-background: #121413;
+  --color-foreground: #f3f3ef;
+}
+:root {
+  color-scheme: dark;
+}
+body {
+  margin: 0;
+  background: #121413;
+  color: #f3f3ef;
+  font-family: Arial, Helvetica, sans-serif;
+}
+a,
+button,
+input,
+select,
+textarea {
+  touch-action: manipulation;
+}
+input,
+select,
+textarea {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid #4b514d;
+  border-radius: 8px;
+  background: #171b18;
+  padding: 10px 12px;
+  color: #f3f3ef;
+}
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid #fcd34d;
+  outline-offset: 2px;
+}
+label {
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+  color: #d8ddd8;
+}
+input[type="checkbox"] {
+  width: 20px;
+  min-height: 20px;
+}
+summary {
+  cursor: pointer;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 14px;
+}
+th {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #a8b1aa;
+}
+td,
+th {
+  padding: 16px;
+  border-bottom: 1px solid #303830;
+}
+td {
+  vertical-align: top;
+}
+h1,
+h2,
+h3 {
+  letter-spacing: -0.025em;
+}
+.panel {
+  border: 1px solid #343d35;
+  border-radius: 14px;
+  background: #1a201b;
+  padding: 22px;
+}
+.muted {
+  color: #a9b6ac;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #51604f;
+  border-radius: 5px;
+  padding: 4px 8px;
+  font-size: 11px;
+  white-space: nowrap;
+}
+.skip {
+  position: absolute;
+  top: -80px;
+  left: 16px;
+  z-index: 100;
+  padding: 12px;
+  background: #fcd34d;
+  color: #000;
+}
+.skip:focus {
+  top: 12px;
+}
+button {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
+}
+::selection {
+  background: #fcd34d;
+  color: #111;
+}

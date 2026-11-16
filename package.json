@@ -1,0 +1,54 @@
+{
+  "name": "comanda",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --hostname 0.0.0.0",
+    "build": "next build",
+    "start": "next start --hostname 0.0.0.0",
+    "lint": "eslint .",
+    "typecheck": "next typegen && tsc --noEmit",
+    "test": "vitest run tests/unit",
+    "test:db": "node --env-file=.env.test tests/integration/database.mjs",
+    "test:e2e": "playwright test",
+    "db:start": "node scripts/supabase.mjs start -x realtime,storage-api,imgproxy,studio,edge-runtime,logflare,vector,supavisor",
+    "db:reset": "node scripts/supabase.mjs db reset --local",
+    "db:types": "node scripts/supabase.mjs gen types typescript --local > src/types/database.generated.ts",
+    "format": "prettier --write src tests scripts *.ts *.mjs *.json .github/workflows/*.yml",
+    "test:workers": "node --env-file=.env.test tests/workers/auth.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@js-temporal/polyfill": "0.5.1",
+    "@radix-ui/react-slot": "1.5.0",
+    "@supabase/ssr": "0.12.7",
+    "@supabase/supabase-js": "2.119.0",
+    "class-variance-authority": "0.7.1",
+    "clsx": "2.1.1",
+    "lucide-react": "1.73.0",
+    "next": "16.4.6",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "tailwind-merge": "3.7.0",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.65.1",
+    "@tailwindcss/postcss": "4.3.5",
+    "@types/node": "26.6.6",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "esbuild": "0.28.2",
+    "eslint": "9.39.5",
+    "eslint-config-next": "16.4.6",
+    "miniflare": "4.20260730.0",
+    "pg": "8.23.1",
+    "prettier": "3.10.1",
+    "supabase": "3.1.0",
+    "tailwindcss": "4.3.5",
+    "typescript": "6.0.3",
+    "vitest": "5.1.0"
+  }
+}
