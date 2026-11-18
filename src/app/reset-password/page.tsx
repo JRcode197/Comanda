@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { requestPasswordReset } from "./actions";
 async function reset(form: FormData) {
   "use server";
   const db = await createClient();
@@ -13,7 +14,7 @@ async function reset(form: FormData) {
 export default async function Reset({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string }>;
+  searchParams: Promise<{ error?: string; sent?: string }>;
 }) {
   const db = await createClient();
   const {
@@ -39,10 +40,27 @@ export default async function Reset({
           <Button>Aggiorna password</Button>
         </form>
       ) : (
-        <p className="panel">
-          Richiedi all’amministratore un link di recupero. Gli invii automatici
-          non sono ancora attivi.
-        </p>
+        <form action={requestPasswordReset} className="grid gap-5 panel">
+          <p>
+            Inserisci la tua email: se l&apos;account esiste, riceverai un link per
+            scegliere una nuova password.
+          </p>
+          <label>
+            Email
+            <input
+              name="email"
+              type="email"
+              required
+              autoComplete="email"
+            />
+          </label>
+          {q.sent && (
+            <p role="status">
+              Se l&apos;account esiste, abbiamo inviato il link di recupero.
+            </p>
+          )}
+          <Button>Invia link di recupero</Button>
+        </form>
       )}
     </main>
   );
